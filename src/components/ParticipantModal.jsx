@@ -7,7 +7,7 @@ const ROUND_LABELS = {
   'semifinal':'Semifinales',
   'final':    'Final',
 }
-const ROUND_PTS = { '16avos':1, octavos:2, cuartos:4, semifinal:6, final:8 }
+const ROUND_PTS = { '16avos':3, octavos:4, cuartos:5, semifinal:7, final:9 }
 
 const TIPO_STYLE = {
   exacto: 'bg-green-900/50 text-green-300',
