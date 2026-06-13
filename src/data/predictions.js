@@ -4397,13 +4397,21 @@ const predictions = [
       "Egipto"
     ],
     "octavos": [
-      "Países Bajos",
+      "Alemania",
       "Francia",
+      "Corea del Sur",
+      "Países Bajos",
       "Brasil",
+      "Noruega",
+      "México",
       "Inglaterra",
+      "Colombia",
       "España",
       "Paraguay",
+      "Bélgica",
       "Uruguay",
+      "Turquía",
+      "Suiza",
       "Portugal"
     ],
     "cuartos": [
@@ -4418,9 +4426,14 @@ const predictions = [
     ],
     "semifinal": [
       "Francia",
+      "España",
+      "Brasil",
       "Portugal"
     ],
-    "final": [],
+    "final": [
+      "Francia",
+      "Portugal"
+    ],
     "campeon": "Francia",
     "tercero": "España",
     "botaOro": "K.MBAPPE",
@@ -4538,13 +4551,21 @@ const predictions = [
       "Egipto"
     ],
     "octavos": [
-      "Países Bajos",
+      "Alemania",
       "Francia",
+      "Corea del Sur",
+      "Países Bajos",
       "Brasil",
+      "Noruega",
+      "México",
       "Inglaterra",
+      "Colombia",
       "España",
+      "EE.UU.",
       "Bélgica",
       "Argentina",
+      "Turquía",
+      "Suiza",
       "Portugal"
     ],
     "cuartos": [
@@ -4558,10 +4579,15 @@ const predictions = [
       "Portugal"
     ],
     "semifinal": [
+      "Francia",
+      "España",
+      "Inglaterra",
+      "Argentina"
+    ],
+    "final": [
       "España",
       "Argentina"
     ],
-    "final": [],
     "campeon": "España",
     "tercero": "Francia",
     "botaOro": "Kylian Mbappé",
