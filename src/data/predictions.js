@@ -130,11 +130,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -148,8 +144,8 @@ const predictions = [
     ],
     "campeon": "Argentina",
     "tercero": "España",
-    "botaOro": "K. Mbappé",
-    "balonOro": "L. Messi"
+    "botaOro": "MBAPPE",
+    "balonOro": "MESSI"
   },
   {
     "nombre": "Guatopi",
@@ -280,10 +276,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -298,7 +291,7 @@ const predictions = [
     "campeon": "Francia",
     "tercero": "España",
     "botaOro": "mbappe",
-    "balonOro": "mbappe"
+    "balonOro": "mbappe "
   },
   {
     "nombre": "Jaime",
@@ -429,10 +422,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -578,11 +568,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Colombia",
-      "Francia",
-      "Brasil",
-      "Portugal",
-      "España"
+      "Colombia"
     ],
     "semifinal": [
       "Francia",
@@ -728,9 +714,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -876,9 +860,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -1024,10 +1006,7 @@ const predictions = [
     ],
     "cuartos": [
       "Croacia",
-      "Portugal",
-      "Francia",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -1173,11 +1152,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -1323,9 +1298,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -1471,11 +1444,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -1621,9 +1590,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -1769,11 +1736,7 @@ const predictions = [
     ],
     "cuartos": [
       "México",
-      "Portugal",
-      "Alemania",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Alemania",
@@ -1919,10 +1882,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2068,11 +2028,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Marruecos",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2218,11 +2174,7 @@ const predictions = [
     ],
     "cuartos": [
       "Croacia",
-      "Portugal",
-      "Francia",
-      "Marruecos",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2236,7 +2188,7 @@ const predictions = [
     ],
     "campeon": "España",
     "tercero": "Argentina",
-    "botaOro": "kylian mbappe",
+    "botaOro": "kylian mbappe ",
     "balonOro": "lamine yamal"
   },
   {
@@ -2368,11 +2320,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2518,11 +2466,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2668,9 +2612,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2816,9 +2758,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -2964,10 +2904,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -3113,10 +3050,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Colombia",
-      "Francia",
-      "España",
-      "Argentina"
+      "Colombia"
     ],
     "semifinal": [
       "Francia",
@@ -3262,11 +3196,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -3412,11 +3342,7 @@ const predictions = [
     ],
     "cuartos": [
       "México",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -3562,10 +3488,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Alemania",
-      "Brasil",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Alemania",
@@ -3711,10 +3634,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -3860,10 +3780,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Francia",
-      "Brasil",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Francia",
@@ -4009,10 +3926,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Alemania",
-      "Marruecos",
-      "España"
+      "Portugal"
     ],
     "semifinal": [
       "Alemania",
@@ -4027,7 +3941,7 @@ const predictions = [
     "campeon": "Marruecos",
     "tercero": "Portugal",
     "botaOro": "Youssef enNesyri",
-    "balonOro": "Achraf Hakimi"
+    "balonOro": "Achraf Hakimi "
   },
   {
     "nombre": "Michel Berczeller",
@@ -4158,10 +4072,7 @@ const predictions = [
     ],
     "cuartos": [
       "Inglaterra",
-      "Portugal",
-      "Países Bajos",
-      "España",
-      "Argentina"
+      "Portugal"
     ],
     "semifinal": [
       "Países Bajos",
@@ -4293,11 +4204,14 @@ const predictions = [
       "Francia",
       "Portugal"
     ],
-    "final": [],
+    "final": [
+      null,
+      null
+    ],
     "campeon": "Francia",
     "tercero": "España",
     "botaOro": "K.MBAPPE",
-    "balonOro": "O. Dembélé"
+    "balonOro": "DEMBELE"
   },
   {
     "nombre": "Bastian Garrido",
@@ -4414,7 +4328,10 @@ const predictions = [
       "España",
       "Argentina"
     ],
-    "final": [],
+    "final": [
+      null,
+      null
+    ],
     "campeon": "España",
     "tercero": "Francia",
     "botaOro": "Kylian Mbappé",
