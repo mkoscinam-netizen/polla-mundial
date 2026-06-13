@@ -21,11 +21,11 @@ export function calcScore(participant, results, settings) {
   }
 
   const knockRounds = [
-    { predKey: '16avos',    settingsKey: 'r32',         ppTeam: 1 },
-    { predKey: 'octavos',   settingsKey: 'r16',         ppTeam: 2 },
-    { predKey: 'cuartos',   settingsKey: 'qf',          ppTeam: 4 },
-    { predKey: 'semifinal', settingsKey: 'sf',          ppTeam: 6 },
-    { predKey: 'final',     settingsKey: 'final_teams', ppTeam: 8 },
+    { predKey: '16avos',    settingsKey: 'r32',         ppTeam: 3 },
+    { predKey: 'octavos',   settingsKey: 'r16',         ppTeam: 4 },
+    { predKey: 'cuartos',   settingsKey: 'qf',          ppTeam: 5 },
+    { predKey: 'semifinal', settingsKey: 'sf',          ppTeam: 7 },
+    { predKey: 'final',     settingsKey: 'final_teams', ppTeam: 9 },
   ]
 
   const knockBreakdown = {}
