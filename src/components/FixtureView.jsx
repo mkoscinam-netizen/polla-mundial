@@ -7,15 +7,36 @@ function fmtDate(d) {
   return new Date(d + 'T12:00:00').toLocaleDateString('es-CL', { weekday: 'short', day: 'numeric', month: 'short' })
 }
 
+function isLive(match) {
+  if (!match.date || !match.time) return false
+  const now = new Date()
+  const start = new Date(`${match.date}T${match.time}:00-04:00`)
+  const end = new Date(start.getTime() + 120 * 60 * 1000)
+  return now >= start && now <= end
+}
+
+function LiveBadge() {
+  return (
+    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-bold bg-red-600 text-white animate-pulse ml-2">
+      <span className="w-1.5 h-1.5 rounded-full bg-white inline-block"></span>
+      LIVE
+    </span>
+  )
+}
+
 function MatchRow({ match, result }) {
   const res = result ? `${result.home_score}–${result.away_score}` : null
   const isHome = result && result.home_score > result.away_score
   const isAway = result && result.away_score > result.home_score
+  const live = isLive(match)
   return (
-    <div className="flex items-center gap-2 py-2 px-3 border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
+    <div className={`flex items-center gap-2 py-2 px-3 border-b border-slate-800 hover:bg-slate-800/50 transition-colors ${live ? 'bg-red-950/20' : ''}`}>
       <div className="w-24 text-xs text-slate-400 shrink-0">
         <div>{fmtDate(match.date)}</div>
-        <div className="text-yellow-400 font-medium">{match.time}</div>
+        <div className="flex items-center gap-1">
+          <span className="text-yellow-400 font-medium">{match.time}</span>
+          {live && <LiveBadge />}
+        </div>
       </div>
       <div className="flex-1 flex items-center justify-between gap-2 min-w-0">
         <span className={`text-sm font-medium truncate text-right flex-1 ${isHome ? 'text-white' : isAway ? 'text-slate-400' : ''}`}>
@@ -24,6 +45,8 @@ function MatchRow({ match, result }) {
         <div className="shrink-0 w-16 text-center">
           {res ? (
             <span className="text-green-400 font-bold text-sm">{res}</span>
+          ) : live ? (
+            <span className="text-red-400 font-bold text-sm animate-pulse">EN VIVO</span>
           ) : (
             <span className="text-slate-600 text-xs">vs</span>
           )}
@@ -79,7 +102,6 @@ export default function FixtureView({ results, settings }) {
         const advTeams = settingsKey ? (settings[settingsKey] || []) : []
         const hasTeams = advTeams.length > 0
 
-        // For R32 and R16: only show if teams confirmed, or show placeholder
         if ((r === 'R32' || r === 'R16' || r === 'QF' || r === 'SF') && !hasTeams && !ms.some(m => results[m.id])) {
           return (
             <div key={r} className="mb-4">
