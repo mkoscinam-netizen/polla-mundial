@@ -18,6 +18,14 @@ const TIPO_STYLES = {
 }
 const TIPO_ICON = { exacto: '✓', signo: '~', fallo: '✗' }
 
+function isLive(match) {
+  if (!match.date || !match.time) return false
+  const now = new Date()
+  const start = new Date(`${match.date}T${match.time}:00-04:00`)
+  const end = new Date(start.getTime() + 120 * 60 * 1000)
+  return now >= start && now <= end
+}
+
 export default function TodayView({ participants, results }) {
   const today = todayChile()
   const todayMatches = MATCHES.filter(m => m.date === today && m.group)
@@ -44,19 +52,31 @@ export default function TodayView({ participants, results }) {
               <th className="sticky left-0 z-10 bg-slate-800 text-left px-3 py-2 text-xs text-slate-400 font-semibold min-w-[120px] border-r border-slate-700">
                 Participante
               </th>
-              {todayMatches.map(m => (
-                <th key={m.id} className="px-3 py-2 text-center min-w-[110px] border-r border-slate-700 last:border-r-0">
-                  <div className="text-xs font-bold text-white whitespace-nowrap">
-                    {m.home} <span className="text-slate-400">vs</span> {m.away}
-                  </div>
-                  <div className="text-xs text-yellow-400">{m.time} · Gr.{m.group}</div>
-                  {results[m.id] && (
-                    <div className="text-xs font-bold text-green-400 mt-0.5">
-                      {results[m.id].home_score}–{results[m.id].away_score}
+              {todayMatches.map(m => {
+                const live = isLive(m)
+                return (
+                  <th key={m.id} className={`px-3 py-2 text-center min-w-[110px] border-r border-slate-700 last:border-r-0 ${live ? 'bg-red-950/30' : ''}`}>
+                    <div className="text-xs font-bold text-white whitespace-nowrap flex items-center justify-center gap-1">
+                      {m.home} <span className="text-slate-400">vs</span> {m.away}
+                      {live && (
+                        <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-bold bg-red-600 text-white animate-pulse ml-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white inline-block"></span>
+                          LIVE
+                        </span>
+                      )}
                     </div>
-                  )}
-                </th>
-              ))}
+                    <div className="text-xs text-yellow-400">{m.time} · Gr.{m.group}</div>
+                    {results[m.id] && (
+                      <div className="text-xs font-bold text-green-400 mt-0.5">
+                        {results[m.id].home_score}–{results[m.id].away_score}
+                      </div>
+                    )}
+                    {!results[m.id] && live && (
+                      <div className="text-xs font-bold text-red-400 mt-0.5 animate-pulse">En curso</div>
+                    )}
+                  </th>
+                )
+              })}
             </tr>
           </thead>
           <tbody>
