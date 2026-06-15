@@ -4774,6 +4774,20 @@ const predictions = [
     "tercero": "España",
     "botaOro": "HARRY KANE",
     "balonOro": "HARRY KANE"
+  },
+  {
+    "nombre": "Rene",
+    "grupo": "Ineptos",
+    "partidos": {},
+    "16avos": [],
+    "octavos": [],
+    "cuartos": [],
+    "semifinal": [],
+    "final": [],
+    "campeon": null,
+    "tercero": null,
+    "botaOro": null,
+    "balonOro": null
   }
 ];
 
