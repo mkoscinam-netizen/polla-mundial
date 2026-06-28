@@ -186,6 +186,7 @@ export default function TodayView({ participants, results, settings = {} }) {
       {/* ── ELIMINATORIAS ── */}
       {knockoutMatches.length > 0 && (
         <div className="mt-2">
+          <KnockoutLegend />
           {knockoutMatches.length > 0 && groupMatches.length > 0 && (
             <div className="px-4 py-1 text-xs text-yellow-400 font-bold tracking-widest uppercase border-b border-slate-800">
               Eliminatorias
@@ -260,7 +261,6 @@ export default function TodayView({ participants, results, settings = {} }) {
           </div>
         </div>
       )}
-      {knockoutMatches.length > 0 && <KnockoutLegend />}
     </div>
   )
 }
