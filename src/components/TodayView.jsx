@@ -264,6 +264,25 @@ export default function TodayView({ participants, results, settings = {} }) {
   )
 }
 
+function KnockoutLegend() {
+  return (
+    <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', padding: '8px 12px', fontSize: 11, borderTop: '1px solid #1e293b', marginTop: 4 }}>
+      <span className="flex items-center gap-1">
+        <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-green-700 text-green-100">✓</span>
+        <span className="text-slate-400">Acierto avance de fase</span>
+      </span>
+      <span className="flex items-center gap-1">
+        <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-yellow-800 text-yellow-100">?</span>
+        <span className="text-slate-400">Posible acierto avance de fase</span>
+      </span>
+      <span className="flex items-center gap-1">
+        <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-red-900 text-red-300">✗</span>
+        <span className="text-slate-400">Equipo no avanza de fase</span>
+      </span>
+    </div>
+  )
+}
+
 function formatDate(d) {
   return new Date(d + 'T12:00:00').toLocaleDateString('es-CL', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
