@@ -12,7 +12,7 @@ const TABS = [
   { key: 'hoy',     label: 'HOY' },
   { key: 'fixture', label: 'FIXTURE' },
   { key: 'ranking', label: 'RANKING' },
-  { key: 'bracket', label: 'BRACKET' },
+  { key: 'bracket', label: 'FASE FINAL' },
   { key: 'admin',   label: 'ADMIN' },
 ]
 
