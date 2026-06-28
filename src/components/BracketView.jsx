@@ -1,4 +1,5 @@
 
+import { useRef, useEffect, useState } from 'react'
 import { MATCHES } from '../data/matches'
 
 // ── Equipos reales confirmados R32 ──────────────────────────────────────────
@@ -168,6 +169,22 @@ function BCol({ label, pairs, results, itemGap = 8, pairGap = 24 }) {
 // ── Bracket principal ────────────────────────────────────────────────────────
 export default function BracketView({ results, settings }) {
 
+  const wrapRef = useRef(null)
+  const [scale, setScale] = useState(1)
+
+  useEffect(() => {
+    const el = wrapRef.current
+    if (!el) return
+    const update = () => {
+      const w = el.offsetWidth
+      setScale(w >= 1100 ? 1 : w / 1100)
+    }
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   if (!results) return (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -197,21 +214,18 @@ export default function BracketView({ results, settings }) {
         </div>
       </div>
 
-      {/* Bracket scrollable — scale to fit on mobile, pinch to zoom */}
-      {(() => {
-        const _scale = Math.min(1, (window.innerWidth - 24) / 1100)
-        const _mobile = _scale < 1
-        return <>
-      <div style={{ overflowX: _mobile ? 'hidden' : 'auto', paddingBottom: 16, WebkitOverflowScrolling: 'touch' }}>
+      {/* Bracket scrollable — scale to fit, pinch to zoom */}
+      <div ref={wrapRef} style={{ overflow: 'hidden', touchAction: 'pinch-zoom' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: 10,
-          minWidth: 1100,
+          width: 1100,
           justifyContent: 'center',
-          transformOrigin: 'top center',
-          transform: _mobile ? `scale(${_scale})` : 'none',
-          marginBottom: _mobile ? `${(_scale - 1) * 700}px` : 0,
+          transformOrigin: '0 0',
+          transform: `scale(${scale})`,
+          height: `${700 * scale}px`,
+          marginBottom: -700 * (1 - scale),
         }}>
 
           {/* ── IZQUIERDA ── */}
@@ -305,8 +319,6 @@ export default function BracketView({ results, settings }) {
 
         </div>
       </div>
-        </>
-      })()}
 
       {/* Leyenda */}
       <div style={{
