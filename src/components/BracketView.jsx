@@ -205,9 +205,9 @@ export default function BracketView({ results, settings }) {
           gap: 10,
           width: 1100,
           justifyContent: 'center',
-          transformOrigin: 'top left',
+          transformOrigin: 'top center',
           transform: `scale(${Math.min(1, (window.innerWidth - 24) / 1100)})`,
-          marginBottom: `${(Math.min(1, (window.innerWidth - 24) / 1100) - 1) * 600}px`,
+          marginBottom: `${(Math.min(1, (window.innerWidth - 24) / 1100) - 1) * 700}px`,
         }}>
 
           {/* ── IZQUIERDA ── */}
