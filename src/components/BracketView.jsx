@@ -116,8 +116,22 @@ export default function BracketView({ results, settings }) {
         <div style={{ color: '#334155', fontSize: 10, marginTop: 4 }}>Resultados en tiempo real · Final: 19 julio · MetLife Stadium</div>
       </div>
 
-      <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 1100, justifyContent: 'center' }}>
+      {(() => {
+        const BRACKET_W = 1100
+        const BRACKET_H = 760
+        const vw = typeof window !== 'undefined' ? window.innerWidth : BRACKET_W
+        const isMobile = vw < BRACKET_W
+        const scale = isMobile ? vw / BRACKET_W : 1
+        return (
+        <div style={{ width: '100%', height: isMobile ? BRACKET_H * scale : 'auto', overflow: isMobile ? 'hidden' : 'auto', position: 'relative' }}>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 10,
+            width: BRACKET_W, justifyContent: 'center',
+            transformOrigin: 'top left',
+            transform: isMobile ? `scale(${scale})` : 'none',
+            position: isMobile ? 'absolute' : 'relative',
+            top: 0, left: 0,
+          }}>
 
           <BCol label="16avos" pairs={[[74, 77], [73, 75], [76, 78], [79, 80]]} results={results} itemGap={8} pairGap={28} />
           <Arrow />
@@ -148,8 +162,10 @@ export default function BracketView({ results, settings }) {
           <Arrow flip />
           <BCol label="16avos" pairs={[[83, 84], [81, 82], [86, 88], [85, 87]]} results={results} itemGap={8} pairGap={28} />
 
+          </div>
         </div>
-      </div>
+        )
+      })()}
 
       <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginTop: 20, fontSize: 10, color: '#334155' }}>
         {[{ bg: '#1e3a5f', border: '#3b82f655', label: 'Ganador' }, { bg: '#16213e', border: '#3b82f655', label: 'Con resultado' }, { bg: '#0f172a', border: '#1e293b', label: 'Pendiente' }].map(({ bg, border, label }) => (
