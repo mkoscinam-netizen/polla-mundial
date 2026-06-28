@@ -197,14 +197,17 @@ export default function BracketView({ results, settings }) {
         </div>
       </div>
 
-      {/* Bracket scrollable */}
-      <div style={{ overflowX: 'auto', paddingBottom: 16 }}>
+      {/* Bracket scrollable — scale to fit on mobile, pinch to zoom */}
+      <div style={{ overflowX: 'auto', overflowY: 'visible', paddingBottom: 16, WebkitOverflowScrolling: 'touch' }}>
         <div style={{
-          display: 'flex',
+          display: 'inline-flex',
           alignItems: 'center',
           gap: 10,
-          minWidth: 1100,
+          width: 1100,
           justifyContent: 'center',
+          transformOrigin: 'top left',
+          transform: `scale(${Math.min(1, (window.innerWidth - 24) / 1100)})`,
+          marginBottom: `${(Math.min(1, (window.innerWidth - 24) / 1100) - 1) * 600}px`,
         }}>
 
           {/* ── IZQUIERDA ── */}
