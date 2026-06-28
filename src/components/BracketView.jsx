@@ -1,8 +1,5 @@
-
-import { useRef, useEffect, useState } from 'react'
 import { MATCHES } from '../data/matches'
 
-// ── Equipos reales confirmados R32 ──────────────────────────────────────────
 const R32_TEAMS = {
   73: ['Sudáfrica', 'Canadá'],
   74: ['Alemania', 'Paraguay'],
@@ -22,13 +19,6 @@ const R32_TEAMS = {
   88: ['Australia', 'Egipto'],
 }
 
-// ── Cruce de llaves FIFA ─────────────────────────────────────────────────────
-// R16: 89=W74vW77, 90=W73vW75, 91=W76vW78, 92=W79vW80
-//      93=W83vW84, 94=W81vW82, 95=W86vW88, 96=W85vW87
-// QF:  97=W89vW90, 98=W93vW94, 99=W91vW92, 100=W95vW96
-// SF:  101=W97vW98, 102=W99vW100
-// F:   104=W101vW102  |  3P: 103=L101vL102
-
 const MATCH_BY_ID = Object.fromEntries(MATCHES.map(m => [m.id, m]))
 
 function getScore(results, id) {
@@ -38,22 +28,17 @@ function getScore(results, id) {
 }
 
 function getTeamName(results, id) {
-  // Retorna [home, away] resolviendo ganadores de rondas anteriores
   if (id <= 88) return R32_TEAMS[id] || ['TBD', 'TBD']
-  
-  // Para R16+, buscar en match_results el partido previo
   const parentMap = {
     89: [74, 77], 90: [73, 75], 91: [76, 78], 92: [79, 80],
     93: [83, 84], 94: [81, 82], 95: [86, 88], 96: [85, 87],
     97: [89, 90], 98: [93, 94], 99: [91, 92], 100: [95, 96],
     101: [97, 98], 102: [99, 100],
-    103: [101, 102], // losers
-    104: [101, 102], // winners
+    103: [101, 102],
+    104: [101, 102],
   }
-  
   const parents = parentMap[id]
   if (!parents) return ['TBD', 'TBD']
-  
   const getWinner = (pid) => {
     const r = results[pid]
     if (!r) return null
@@ -62,7 +47,6 @@ function getTeamName(results, id) {
     if (r.away_score > r.home_score) return pa
     return null
   }
-  
   const getLoser = (pid) => {
     const r = results[pid]
     if (!r) return null
@@ -71,15 +55,10 @@ function getTeamName(results, id) {
     if (r.away_score > r.home_score) return ph
     return null
   }
-  
-  if (id === 103) {
-    return [getLoser(parents[0]) || 'TBD', getLoser(parents[1]) || 'TBD']
-  }
-  
+  if (id === 103) return [getLoser(parents[0]) || 'TBD', getLoser(parents[1]) || 'TBD']
   return [getWinner(parents[0]) || 'TBD', getWinner(parents[1]) || 'TBD']
 }
 
-// ── Componente MatchCard ─────────────────────────────────────────────────────
 function MatchCard({ id, results, width = 152 }) {
   const match = MATCH_BY_ID[id]
   const score = getScore(results, id)
@@ -87,74 +66,30 @@ function MatchCard({ id, results, width = 152 }) {
   const played = score !== null
   const hWin = played && score.h > score.a
   const aWin = played && score.a > score.h
-
   const dateStr = match?.date
     ? new Date(match.date + 'T12:00:00').toLocaleDateString('es-CL', { day: 'numeric', month: 'short' })
     : ''
-
   return (
-    <div style={{
-      width,
-      background: played ? '#16213e' : '#0f172a',
-      border: `1px solid ${played ? '#3b82f655' : '#1e293b'}`,
-      borderRadius: 5,
-      overflow: 'hidden',
-      boxShadow: played ? '0 0 6px #3b82f620' : 'none',
-      flexShrink: 0,
-    }}>
-      <div style={{
-        padding: '2px 6px',
-        background: '#080f1e',
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: 9,
-        color: '#475569',
-        borderBottom: '1px solid #1e293b',
-      }}>
+    <div style={{ width, background: played ? '#16213e' : '#0f172a', border: `1px solid ${played ? '#3b82f655' : '#1e293b'}`, borderRadius: 5, overflow: 'hidden', flexShrink: 0 }}>
+      <div style={{ padding: '2px 6px', background: '#080f1e', display: 'flex', justifyContent: 'space-between', fontSize: 9, color: '#475569', borderBottom: '1px solid #1e293b' }}>
         <span style={{ color: '#334155' }}>M{id}</span>
         <span>{dateStr} · {match?.time}</span>
       </div>
       {[{ team: home, score: score?.h, win: hWin, lose: played && aWin },
-        { team: away, score: score?.a, win: aWin, lose: played && hWin }]
-        .map(({ team, score: sc, win, lose }, i) => (
-          <div key={i} style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '4px 6px',
-            background: win ? '#1e3a5f' : 'transparent',
-            borderTop: i === 1 ? '1px solid #1e293b' : 'none',
-          }}>
-            <span style={{
-              fontSize: 10,
-              color: win ? '#93c5fd' : lose ? '#334155' : '#94a3b8',
-              fontWeight: win ? 700 : 400,
-              maxWidth: width - 30,
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}>{team}</span>
-            <span style={{
-              fontSize: 11,
-              fontWeight: 700,
-              color: win ? '#60a5fa' : lose ? '#1e293b' : '#475569',
-              minWidth: 14,
-              textAlign: 'right',
-            }}>{played ? sc : ''}</span>
-          </div>
-        ))}
+        { team: away, score: score?.a, win: aWin, lose: played && hWin }].map(({ team, score: sc, win, lose }, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 6px', background: win ? '#1e3a5f' : 'transparent', borderTop: i === 1 ? '1px solid #1e293b' : 'none' }}>
+          <span style={{ fontSize: 10, color: win ? '#93c5fd' : lose ? '#334155' : '#94a3b8', fontWeight: win ? 700 : 400, maxWidth: width - 30, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{team}</span>
+          <span style={{ fontSize: 11, fontWeight: 700, color: win ? '#60a5fa' : lose ? '#1e293b' : '#475569', minWidth: 14, textAlign: 'right' }}>{played ? sc : ''}</span>
+        </div>
+      ))}
     </div>
   )
 }
 
-// ── Columna del bracket ──────────────────────────────────────────────────────
 function BCol({ label, pairs, results, itemGap = 8, pairGap = 24 }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{
-        color: '#64748b', fontSize: 9, fontWeight: 700, letterSpacing: '0.12em',
-        textTransform: 'uppercase', marginBottom: 10, textAlign: 'center',
-      }}>{label}</div>
+      <div style={{ color: '#64748b', fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 10, textAlign: 'center' }}>{label}</div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: pairGap }}>
         {pairs.map((pair, pi) => (
           <div key={pi} style={{ display: 'flex', flexDirection: 'column', gap: itemGap }}>
@@ -166,191 +101,64 @@ function BCol({ label, pairs, results, itemGap = 8, pairGap = 24 }) {
   )
 }
 
-// ── Bracket principal ────────────────────────────────────────────────────────
+function Arrow({ flip = false }) {
+  return <div style={{ color: '#1e3a5f', fontSize: 14, transform: flip ? 'scaleX(-1)' : 'none', userSelect: 'none', flexShrink: 0 }}>›</div>
+}
+
 export default function BracketView({ results, settings }) {
-
-  const wrapRef = useRef(null)
-  const [scale, setScale] = useState(1)
-
-  useEffect(() => {
-    const el = wrapRef.current
-    if (!el) return
-    const update = () => {
-      const w = el.offsetWidth
-      setScale(w >= 1100 ? 1 : w / 1100)
-    }
-    update()
-    const ro = new ResizeObserver(update)
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
-
-  if (!results) return (
-    <div style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      height: '60vh', color: '#3b82f6', fontSize: 14,
-    }}>
-      Cargando...
-    </div>
-  )
+  if (!results) return <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh', color: '#3b82f6' }}>Cargando...</div>
 
   return (
-    <div style={{
-      background: '#060d1a',
-      minHeight: '100vh',
-      padding: '20px 12px 40px',
-      fontFamily: 'Inter, system-ui, sans-serif',
-    }}>
-      {/* Título */}
+    <div style={{ background: '#060d1a', minHeight: '100vh', padding: '20px 12px 40px', fontFamily: 'Inter, system-ui, sans-serif' }}>
       <div style={{ textAlign: 'center', marginBottom: 24 }}>
-        <div style={{ color: '#fbbf24', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', marginBottom: 4 }}>
-          ⚽ COPA MUNDIAL FIFA 2026
-        </div>
-        <h2 style={{ margin: 0, color: '#f1f5f9', fontSize: 18, fontWeight: 800, letterSpacing: '0.05em' }}>
-          FASE FINAL — BRACKET
-        </h2>
-        <div style={{ color: '#334155', fontSize: 10, marginTop: 4 }}>
-          Resultados en tiempo real · Final: 19 julio · MetLife Stadium
-        </div>
+        <div style={{ color: '#fbbf24', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', marginBottom: 4 }}>⚽ COPA MUNDIAL FIFA 2026</div>
+        <h2 style={{ margin: 0, color: '#f1f5f9', fontSize: 18, fontWeight: 800, letterSpacing: '0.05em' }}>FASE FINAL — BRACKET</h2>
+        <div style={{ color: '#334155', fontSize: 10, marginTop: 4 }}>Resultados en tiempo real · Final: 19 julio · MetLife Stadium</div>
       </div>
 
-      {/* Bracket scrollable — scale to fit, pinch to zoom */}
-      <div ref={wrapRef} style={{ overflow: 'hidden', touchAction: 'pinch-zoom' }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          width: 1100,
-          justifyContent: 'center',
-          transformOrigin: '0 0',
-          transform: `scale(${scale})`,
-          height: `${700 * scale}px`,
-          marginBottom: -700 * (1 - scale),
-        }}>
+      <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, minWidth: 1100, justifyContent: 'center' }}>
 
-          {/* ── IZQUIERDA ── */}
-          {/* R32 izq */}
-          <BCol label="16avos"
-            pairs={[[74, 77], [73, 75], [76, 78], [79, 80]]}
-            results={results}
-            itemGap={8} pairGap={28}
-          />
-
+          <BCol label="16avos" pairs={[[74, 77], [73, 75], [76, 78], [79, 80]]} results={results} itemGap={8} pairGap={28} />
+          <Arrow />
+          <BCol label="Octavos" pairs={[[89, 90], [91, 92]]} results={results} itemGap={8} pairGap={80} />
+          <Arrow />
+          <BCol label="Cuartos" pairs={[[97], [99]]} results={results} itemGap={8} pairGap={160} />
+          <Arrow />
+          <BCol label="Semis" pairs={[[101]]} results={results} />
           <Arrow />
 
-          {/* R16 izq */}
-          <BCol label="Octavos"
-            pairs={[[89, 90], [91, 92]]}
-            results={results}
-            itemGap={8} pairGap={80}
-          />
-
-          <Arrow />
-
-          {/* QF izq */}
-          <BCol label="Cuartos"
-            pairs={[[97], [99]]}
-            results={results}
-            itemGap={8} pairGap={160}
-          />
-
-          <Arrow />
-
-          {/* SF izq */}
-          <BCol label="Semis"
-            pairs={[[101]]}
-            results={results}
-          />
-
-          <Arrow />
-
-          {/* ── CENTRO ── */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, marginBottom: 2 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
             <div>
-              <div style={{
-                textAlign: 'center', color: '#fbbf24', fontSize: 9,
-                fontWeight: 800, letterSpacing: '0.2em', marginBottom: 6,
-              }}>🏆 FINAL</div>
+              <div style={{ textAlign: 'center', color: '#fbbf24', fontSize: 9, fontWeight: 800, letterSpacing: '0.2em', marginBottom: 6 }}>🏆 FINAL</div>
               <MatchCard id={104} results={results} width={168} />
             </div>
             <div>
-              <div style={{
-                textAlign: 'center', color: '#94a3b8', fontSize: 9,
-                fontWeight: 700, letterSpacing: '0.15em', marginBottom: 6,
-              }}>🥉 3ER LUGAR</div>
+              <div style={{ textAlign: 'center', color: '#94a3b8', fontSize: 9, fontWeight: 700, letterSpacing: '0.15em', marginBottom: 6 }}>🥉 3ER LUGAR</div>
               <MatchCard id={103} results={results} width={168} />
             </div>
           </div>
 
           <Arrow flip />
-
-          {/* SF der */}
-          <BCol label="Semis"
-            pairs={[[102]]}
-            results={results}
-          />
-
+          <BCol label="Semis" pairs={[[102]]} results={results} />
           <Arrow flip />
-
-          {/* QF der */}
-          <BCol label="Cuartos"
-            pairs={[[98], [100]]}
-            results={results}
-            itemGap={8} pairGap={160}
-          />
-
+          <BCol label="Cuartos" pairs={[[98], [100]]} results={results} itemGap={8} pairGap={160} />
           <Arrow flip />
-
-          {/* R16 der */}
-          <BCol label="Octavos"
-            pairs={[[93, 94], [95, 96]]}
-            results={results}
-            itemGap={8} pairGap={80}
-          />
-
+          <BCol label="Octavos" pairs={[[93, 94], [95, 96]]} results={results} itemGap={8} pairGap={80} />
           <Arrow flip />
-
-          {/* R32 der */}
-          <BCol label="16avos"
-            pairs={[[83, 84], [81, 82], [86, 88], [85, 87]]}
-            results={results}
-            itemGap={8} pairGap={28}
-          />
+          <BCol label="16avos" pairs={[[83, 84], [81, 82], [86, 88], [85, 87]]} results={results} itemGap={8} pairGap={28} />
 
         </div>
       </div>
 
-      {/* Leyenda */}
-      <div style={{
-        display: 'flex', justifyContent: 'center', gap: 20,
-        marginTop: 20, fontSize: 10, color: '#334155',
-      }}>
-        {[
-          { bg: '#1e3a5f', border: '#3b82f655', label: 'Ganador' },
-          { bg: '#16213e', border: '#3b82f655', label: 'Con resultado' },
-          { bg: '#0f172a', border: '#1e293b', label: 'Pendiente' },
-        ].map(({ bg, border, label }) => (
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginTop: 20, fontSize: 10, color: '#334155' }}>
+        {[{ bg: '#1e3a5f', border: '#3b82f655', label: 'Ganador' }, { bg: '#16213e', border: '#3b82f655', label: 'Con resultado' }, { bg: '#0f172a', border: '#1e293b', label: 'Pendiente' }].map(({ bg, border, label }) => (
           <span key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <span style={{
-              width: 10, height: 10, background: bg,
-              border: `1px solid ${border}`, borderRadius: 2, display: 'inline-block'
-            }} />
+            <span style={{ width: 10, height: 10, background: bg, border: `1px solid ${border}`, borderRadius: 2, display: 'inline-block' }} />
             {label}
           </span>
         ))}
       </div>
     </div>
-  )
-}
-
-function Arrow({ flip = false }) {
-  return (
-    <div style={{
-      color: '#1e3a5f',
-      fontSize: 14,
-      transform: flip ? 'scaleX(-1)' : 'none',
-      userSelect: 'none',
-      flexShrink: 0,
-    }}>›</div>
   )
 }
