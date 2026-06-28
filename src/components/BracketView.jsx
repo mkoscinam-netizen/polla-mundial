@@ -118,17 +118,23 @@ export default function BracketView({ results, settings }) {
 
       {(() => {
         const BRACKET_W = 1100
-        const BRACKET_H = 760
+        const BRACKET_H = 820
         const vw = typeof window !== 'undefined' ? window.innerWidth : BRACKET_W
         const isMobile = vw < BRACKET_W
         const scale = isMobile ? vw / BRACKET_W : 1
         return (
-        <div style={{ width: '100%', height: isMobile ? BRACKET_H * scale : 'auto', overflow: isMobile ? 'hidden' : 'auto', position: 'relative' }}>
+        <div style={{
+          width: '100%',
+          height: isMobile ? Math.ceil(BRACKET_H * scale) : 'auto',
+          overflowX: isMobile ? 'hidden' : 'auto',
+          overflowY: 'visible',
+          position: 'relative',
+        }}>
           <div style={{
             display: 'flex', alignItems: 'center', gap: 10,
             width: BRACKET_W, justifyContent: 'center',
-            transformOrigin: 'top left',
-            transform: isMobile ? `scale(${scale})` : 'none',
+            transformOrigin: '0 0',
+            transform: isMobile ? `translateX(${(vw - BRACKET_W) / 2}px) scale(${scale})` : 'none',
             position: isMobile ? 'absolute' : 'relative',
             top: 0, left: 0,
           }}>
