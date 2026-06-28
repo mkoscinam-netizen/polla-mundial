@@ -8,7 +8,7 @@ const R32_TEAMS = {
   77: ['Francia', 'Suecia'],
   78: ['Costa de Marfil', 'Noruega'],
   79: ['México', 'Ecuador'],
-  80: ['Inglaterra', '3° EHIJK'],
+  80: ['Inglaterra', 'R.D. Congo'],
   81: ['EE.UU.', 'Bosnia y Herz.'],
   82: ['Bélgica', 'Senegal'],
   83: ['Portugal', 'Croacia'],
