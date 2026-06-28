@@ -260,6 +260,7 @@ export default function TodayView({ participants, results, settings = {} }) {
           </div>
         </div>
       )}
+      {knockoutMatches.length > 0 && <KnockoutLegend />}
     </div>
   )
 }
