@@ -72,7 +72,7 @@ export default function GroupPage({ grupo }) {
           <div className="flex items-center justify-center h-40 text-slate-400">Cargando…</div>
         ) : (
           <>
-            {tab === 'hoy'     && <TodayView     participants={participants} results={results} />}
+            {tab === 'hoy'     && <TodayView     participants={participants} results={results} settings={settings} />}
             {tab === 'fixture' && <FixtureView   results={results} settings={settings} />}
             {tab === 'ranking' && <RankingView   participants={participants} results={results} settings={settings} />}
             {tab === 'bracket' && <BracketView   results={results} settings={settings} />}
