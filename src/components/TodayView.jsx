@@ -27,13 +27,14 @@ const TIPO_STYLES = {
 }
 const TIPO_ICON = { exacto: '✓', signo: '~', fallo: '✗' }
 
-// Determinar qué ronda de clasificados corresponde a cada ronda de partido
+// Qué campo del participante revisar según la ronda del partido
+// El punto se gana si el equipo pasa a la SIGUIENTE ronda
 const ROUND_TO_SETTINGS = {
-  R32: 'r32',
-  R16: 'r16',
-  QF:  'qf',
-  SF:  'sf',
-  F:   'final_teams',
+  R32: 'r16',         // pasa a octavos
+  R16: 'qf',          // pasa a cuartos
+  QF:  'sf',          // pasa a semis
+  SF:  'final_teams', // pasa a final
+  F:   'campeon',     // campeón
 }
 
 // Para un equipo en eliminatoria, determinar su estado
@@ -77,10 +78,15 @@ function getWinner(match, result) {
 // Obtener todos los equipos que un participante pronosticó en una ronda
 function getParticipantTeamsForRound(participant, roundKey) {
   const roundToField = {
-    r32: '16avos', r16: 'octavos', qf: 'cuartos',
+    r16: 'octavos', qf: 'cuartos',
     sf: 'semifinal', final_teams: 'final',
+    campeon: 'campeon',
   }
   const field = roundToField[roundKey]
+  if (roundKey === 'campeon') {
+    // campo es string, no array
+    return new Set(participant.campeon ? [participant.campeon] : [])
+  }
   return new Set(participant[field] || [])
 }
 
