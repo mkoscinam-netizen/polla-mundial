@@ -1,4 +1,4 @@
-import { useSupabase } from '../hooks/useSupabase'
+
 import { MATCHES } from '../data/matches'
 
 // ── Equipos reales confirmados R32 ──────────────────────────────────────────
@@ -166,15 +166,14 @@ function BCol({ label, pairs, results, itemGap = 8, pairGap = 24 }) {
 }
 
 // ── Bracket principal ────────────────────────────────────────────────────────
-export default function BracketView() {
-  const { results, loading } = useSupabase()
+export default function BracketView({ results, settings }) {
 
-  if (loading) return (
+  if (!results) return (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       height: '60vh', color: '#3b82f6', fontSize: 14,
     }}>
-      Cargando bracket...
+      Cargando...
     </div>
   )
 
