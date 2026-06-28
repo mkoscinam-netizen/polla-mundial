@@ -198,16 +198,20 @@ export default function BracketView({ results, settings }) {
       </div>
 
       {/* Bracket scrollable — scale to fit on mobile, pinch to zoom */}
-      <div style={{ overflowX: 'auto', overflowY: 'visible', paddingBottom: 16, WebkitOverflowScrolling: 'touch' }}>
+      {(() => {
+        const _scale = Math.min(1, (window.innerWidth - 24) / 1100)
+        const _mobile = _scale < 1
+        return <>
+      <div style={{ overflowX: _mobile ? 'hidden' : 'auto', paddingBottom: 16, WebkitOverflowScrolling: 'touch' }}>
         <div style={{
-          display: 'inline-flex',
+          display: 'flex',
           alignItems: 'center',
           gap: 10,
-          width: 1100,
+          minWidth: 1100,
           justifyContent: 'center',
           transformOrigin: 'top center',
-          transform: `scale(${Math.min(1, (window.innerWidth - 24) / 1100)})`,
-          marginBottom: `${(Math.min(1, (window.innerWidth - 24) / 1100) - 1) * 700}px`,
+          transform: _mobile ? `scale(${_scale})` : 'none',
+          marginBottom: _mobile ? `${(_scale - 1) * 700}px` : 0,
         }}>
 
           {/* ── IZQUIERDA ── */}
@@ -301,6 +305,8 @@ export default function BracketView({ results, settings }) {
 
         </div>
       </div>
+        </>
+      })()}
 
       {/* Leyenda */}
       <div style={{
