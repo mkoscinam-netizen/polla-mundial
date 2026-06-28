@@ -6,11 +6,13 @@ import TodayView from './TodayView'
 import FixtureView from './FixtureView'
 import RankingView from './RankingView'
 import AdminView from './AdminView'
+import BracketView from './BracketView'
 
 const TABS = [
   { key: 'hoy',     label: 'HOY' },
   { key: 'fixture', label: 'FIXTURE' },
   { key: 'ranking', label: 'RANKING' },
+  { key: 'bracket', label: 'BRACKET' },
   { key: 'admin',   label: 'ADMIN' },
 ]
 
@@ -73,6 +75,7 @@ export default function GroupPage({ grupo }) {
             {tab === 'hoy'     && <TodayView     participants={participants} results={results} />}
             {tab === 'fixture' && <FixtureView   results={results} settings={settings} />}
             {tab === 'ranking' && <RankingView   participants={participants} results={results} settings={settings} />}
+            {tab === 'bracket' && <BracketView   results={results} settings={settings} />}
             {tab === 'admin'   && <AdminView     results={results} settings={settings} />}
           </>
         )}
