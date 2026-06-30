@@ -32,8 +32,8 @@ function getScore(results, id) {
 function getTeamName(results, id) {
   if (id <= 88) return R32_TEAMS[id] || ['TBD', 'TBD']
   const parentMap = {
-    89: [74, 77], 90: [73, 75], 91: [76, 78], 92: [79, 80],
-    93: [83, 84], 94: [81, 82], 95: [86, 88], 96: [85, 87],
+    89: [74, 77], 90: [73, 75], 91: [83, 84], 92: [81, 82],
+    93: [76, 78], 94: [79, 80], 95: [86, 88], 96: [85, 87],
     97: [89, 90], 98: [93, 94], 99: [91, 92], 100: [95, 96],
     101: [97, 98], 102: [99, 100],
     103: [101, 102], 104: [101, 102],
@@ -111,7 +111,7 @@ export default function BracketView({ results, settings }) {
 
       <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: 12 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: COL_GAP, justifyContent: 'center', minWidth: 'max-content', margin: '0 auto' }}>
-          <BCol label="16avos" pairs={[[74, 77], [73, 75], [76, 78], [79, 80]]} results={results} itemGap={6} pairGap={18} />
+          <BCol label="16avos" pairs={[[74, 77], [73, 75], [83, 84], [81, 82]]} results={results} itemGap={6} pairGap={18} />
           <Arrow />
           <BCol label="Octavos" pairs={[[89, 90], [91, 92]]} results={results} itemGap={6} pairGap={54} />
           <Arrow />
@@ -136,7 +136,7 @@ export default function BracketView({ results, settings }) {
           <Arrow flip />
           <BCol label="Octavos" pairs={[[93, 94], [95, 96]]} results={results} itemGap={6} pairGap={54} />
           <Arrow flip />
-          <BCol label="16avos" pairs={[[83, 84], [81, 82], [86, 88], [85, 87]]} results={results} itemGap={6} pairGap={18} />
+          <BCol label="16avos" pairs={[[76, 78], [79, 80], [86, 88], [85, 87]]} results={results} itemGap={6} pairGap={18} />
         </div>
       </div>
 
