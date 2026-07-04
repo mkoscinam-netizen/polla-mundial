@@ -24,6 +24,7 @@ export default function RankingView({ participants, results, settings }) {
             <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">Signos</th>
             <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">16avos ✓</th>
             <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">Octavos ✓</th>
+            <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">4tos ✓</th>
             <th className="px-3 py-2 text-center text-xs text-yellow-400 font-bold w-16">Pts</th>
           </tr>
         </thead>
@@ -49,6 +50,9 @@ export default function RankingView({ participants, results, settings }) {
               </td>
               <td className="px-3 py-3 text-center">
                 <span className="text-blue-400 text-sm font-semibold">{score.knockBreakdown?.['octavos']?.correct?.length ?? 0}</span>
+              </td>
+              <td className="px-3 py-3 text-center">
+                <span className="text-blue-400 text-sm font-semibold">{score.knockBreakdown?.['cuartos']?.correct?.length ?? 0}</span>
               </td>
               <td className="px-3 py-3 text-center">
                 <span className="text-white text-base font-bold">{score.pts}</span>
