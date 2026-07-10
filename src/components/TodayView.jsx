@@ -206,7 +206,7 @@ export default function TodayView({ participants, results, settings = {} }) {
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-yellow-400">{m.time} · {ROUND_LABELS[m.round] || m.round}</div>
+                        <div className="text-xs text-yellow-400">{m.date ? new Date(m.date + 'T12:00:00').toLocaleDateString('es-CL', { day: 'numeric', month: 'short' }) : ''} · {m.time} · {ROUND_LABELS[m.round] || m.round}</div>
                         {res && (
                           <div className="text-xs font-bold text-green-400 mt-0.5">
                             {res.home_score}–{res.away_score}
