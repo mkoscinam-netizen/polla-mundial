@@ -124,26 +124,13 @@ function getParticipantTeamsForRound(participant, roundKey) {
 }
 
 export default function TodayView({ participants, results, settings = {} }) {
-  const today = todayChile()
-  const todayMatches = MATCHES.filter(m => m.date === today)
-
-  if (todayMatches.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-48 text-slate-400 gap-2 p-6">
-        <div className="text-4xl">⚽</div>
-        <div className="text-lg font-medium">Sin partidos hoy</div>
-        <div className="text-sm">{formatDate(today)}</div>
-      </div>
-    )
-  }
-
-  const groupMatches = todayMatches.filter(m => m.group)
-  const knockoutMatches = todayMatches.filter(m => m.round)
+  const groupMatches = []
+  const knockoutMatches = MATCHES.filter(m => ['QF', 'SF', '3P', 'F'].includes(m.round))
 
   return (
     <div className="p-0">
       <div className="px-4 py-2 text-xs text-slate-400 font-medium border-b border-slate-800">
-        {formatDate(today)} — {todayMatches.length} partido{todayMatches.length > 1 ? 's' : ''}
+        Cuartos · Semis · Final
       </div>
 
       {/* ── FASE DE GRUPOS ── */}
@@ -249,7 +236,7 @@ export default function TodayView({ participants, results, settings = {} }) {
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-yellow-400">{m.time} · {ROUND_LABELS[m.round] || m.round}</div>
+                        <div className="text-xs text-yellow-400">{m.date ? new Date(m.date + 'T12:00:00').toLocaleDateString('es-CL', { day: 'numeric', month: 'short' }) : ''} · {m.time} · {ROUND_LABELS[m.round] || m.round}</div>
                         {res && (
                           <div className="text-xs font-bold text-green-400 mt-0.5">
                             {res.home_score}–{res.away_score}
