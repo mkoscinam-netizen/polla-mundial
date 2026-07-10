@@ -92,25 +92,17 @@ function getParticipantTeamsForRound(participant, roundKey) {
 
 export default function TodayView({ participants, results, settings = {} }) {
   const today = todayChile()
-  const todayMatches = MATCHES.filter(m => m.date === today)
 
-  if (todayMatches.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-48 text-slate-400 gap-2 p-6">
-        <div className="text-4xl">⚽</div>
-        <div className="text-lg font-medium">Sin partidos hoy</div>
-        <div className="text-sm">{formatDate(today)}</div>
-      </div>
-    )
-  }
-
-  const groupMatches = todayMatches.filter(m => m.group)
-  const knockoutMatches = todayMatches.filter(m => m.round)
+  // Siempre mostrar todos los partidos de QF en adelante
+  const knockoutMatches = MATCHES.filter(m =>
+    ['QF', 'SF', '3P', 'F'].includes(m.round)
+  )
+  const groupMatches = []
 
   return (
     <div className="p-0">
       <div className="px-4 py-2 text-xs text-slate-400 font-medium border-b border-slate-800">
-        {formatDate(today)} — {todayMatches.length} partido{todayMatches.length > 1 ? 's' : ''}
+        Cuartos · Semis · Final
       </div>
 
       {/* ── FASE DE GRUPOS ── */}

@@ -9,7 +9,7 @@ import AdminView from './AdminView'
 import BracketView from './BracketView'
 
 const TABS = [
-  { key: 'hoy',     label: 'HOY' },
+  { key: 'hoy',     label: 'PRÓXIMOS' },
   { key: 'fixture', label: 'FIXTURE' },
   { key: 'ranking', label: 'RANKING' },
   { key: 'bracket', label: 'FASE FINAL' },
