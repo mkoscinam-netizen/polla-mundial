@@ -75,6 +75,39 @@ function getWinner(match, result) {
   return null // empate — en eliminatoria no debería pasar
 }
 
+// Resolver equipos de partidos futuros basándose en resultados anteriores
+const PARENT_MAP = {
+  97: [74, 77], 98: [73, 75], 99: [76, 78], 100: [79, 80],  // QF — no aplica, ya tienen equipos
+  101: [97, 98], 102: [99, 100],  // SF
+  103: [101, 102], 104: [101, 102], // 3P y F
+}
+
+// Cruces R32→R16 (para resolver SF desde QF)
+const QF_TO_R32 = {
+  97: [74, 77], 98: [83, 84], 99: [76, 78], 100: [86, 88],
+}
+
+function resolveTeam(matchId, side, results, allMatches) {
+  const match = allMatches.find(m => m.id === matchId)
+  if (!match) return 'TBD'
+  if (match.home !== 'TBD' && match.away !== 'TBD') {
+    return side === 'home' ? match.home : match.away
+  }
+  // Buscar ganador del partido padre
+  const parents = PARENT_MAP[matchId]
+  if (!parents) return 'TBD'
+  const parentId = side === 'home' ? parents[0] : parents[1]
+  const parentResult = results[parentId]
+  if (!parentResult) return 'TBD'
+  const parentMatch = allMatches.find(m => m.id === parentId)
+  if (!parentMatch) return 'TBD'
+  // Para 3P, retornar perdedor
+  if (matchId === 103) {
+    return parentResult.home_score > parentResult.away_score ? parentMatch.away : parentMatch.home
+  }
+  return parentResult.home_score > parentResult.away_score ? parentMatch.home : parentMatch.away
+}
+
 // Obtener todos los equipos que un participante pronosticó en una ronda
 function getParticipantTeamsForRound(participant, roundKey) {
   const roundToField = {
@@ -92,17 +125,25 @@ function getParticipantTeamsForRound(participant, roundKey) {
 
 export default function TodayView({ participants, results, settings = {} }) {
   const today = todayChile()
+  const todayMatches = MATCHES.filter(m => m.date === today)
 
-  // Siempre mostrar todos los partidos de QF en adelante
-  const knockoutMatches = MATCHES.filter(m =>
-    ['QF', 'SF', '3P', 'F'].includes(m.round)
-  )
-  const groupMatches = []
+  if (todayMatches.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-48 text-slate-400 gap-2 p-6">
+        <div className="text-4xl">⚽</div>
+        <div className="text-lg font-medium">Sin partidos hoy</div>
+        <div className="text-sm">{formatDate(today)}</div>
+      </div>
+    )
+  }
+
+  const groupMatches = todayMatches.filter(m => m.group)
+  const knockoutMatches = todayMatches.filter(m => m.round)
 
   return (
     <div className="p-0">
       <div className="px-4 py-2 text-xs text-slate-400 font-medium border-b border-slate-800">
-        Cuartos · Semis · Final
+        {formatDate(today)} — {todayMatches.length} partido{todayMatches.length > 1 ? 's' : ''}
       </div>
 
       {/* ── FASE DE GRUPOS ── */}
@@ -195,10 +236,12 @@ export default function TodayView({ participants, results, settings = {} }) {
                     const live = isLive(m)
                     const res = results[m.id]
                     const winner = getWinner(m, res)
+                    const homeTeam = ['SF','3P','F'].includes(m.round) ? resolveTeam(m.id, 'home', results, MATCHES) : m.home
+                    const awayTeam = ['SF','3P','F'].includes(m.round) ? resolveTeam(m.id, 'away', results, MATCHES) : m.away
                     return (
                       <th key={m.id} className={`px-3 py-2 text-center min-w-[150px] border-r border-slate-700 last:border-r-0 ${live ? 'bg-red-950/30' : ''}`}>
                         <div className="text-xs font-bold text-white whitespace-nowrap flex items-center justify-center gap-1">
-                          {m.home} <span className="text-slate-400">vs</span> {m.away}
+                          {homeTeam} <span className="text-slate-400">vs</span> {awayTeam}
                           {live && (
                             <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-bold bg-red-600 text-white animate-pulse ml-1">
                               <span className="w-1.5 h-1.5 rounded-full bg-white inline-block"></span>
@@ -206,7 +249,7 @@ export default function TodayView({ participants, results, settings = {} }) {
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-yellow-400">{m.date ? new Date(m.date + 'T12:00:00').toLocaleDateString('es-CL', { day: 'numeric', month: 'short' }) : ''} · {m.time} · {ROUND_LABELS[m.round] || m.round}</div>
+                        <div className="text-xs text-yellow-400">{m.time} · {ROUND_LABELS[m.round] || m.round}</div>
                         {res && (
                           <div className="text-xs font-bold text-green-400 mt-0.5">
                             {res.home_score}–{res.away_score}
@@ -227,20 +270,22 @@ export default function TodayView({ participants, results, settings = {} }) {
                     {knockoutMatches.map(m => {
                       const res = results[m.id]
                       const winner = getWinner(m, res)
+                      const homeTeam = ['SF','3P','F'].includes(m.round) ? resolveTeam(m.id, 'home', results, MATCHES) : m.home
+                      const awayTeam = ['SF','3P','F'].includes(m.round) ? resolveTeam(m.id, 'away', results, MATCHES) : m.away
                       const settingsKey = ROUND_TO_SETTINGS[m.round]
                       const participantTeams = getParticipantTeamsForRound(p, settingsKey)
-                      const hasHome = participantTeams.has(m.home)
-                      const hasAway = participantTeams.has(m.away)
-                      const homeStatus = teamStatus(m.home, hasHome, winner)
-                      const awayStatus = teamStatus(m.away, hasAway, winner)
+                      const hasHome = participantTeams.has(homeTeam)
+                      const hasAway = participantTeams.has(awayTeam)
+                      const homeStatus = teamStatus(homeTeam, hasHome, winner)
+                      const awayStatus = teamStatus(awayTeam, hasAway, winner)
                       return (
                         <td key={m.id} className="px-2 py-2 text-center border-r border-slate-700 last:border-r-0">
                           <div className="flex gap-1 justify-center">
                             <span className={`px-1.5 py-0.5 rounded text-xs font-bold ${STATUS_STYLE[homeStatus]}`}>
-                              {STATUS_ICON[homeStatus]} {m.home}
+                              {STATUS_ICON[homeStatus]} {homeTeam}
                             </span>
                             <span className={`px-1.5 py-0.5 rounded text-xs font-bold ${STATUS_STYLE[awayStatus]}`}>
-                              {STATUS_ICON[awayStatus]} {m.away}
+                              {STATUS_ICON[awayStatus]} {awayTeam}
                             </span>
                           </div>
                         </td>
