@@ -77,8 +77,7 @@ function getWinner(match, result) {
 
 // Resolver equipos de partidos futuros basándose en resultados anteriores
 const PARENT_MAP = {
-  97: [74, 77], 98: [73, 75], 99: [76, 78], 100: [79, 80],  // QF — no aplica, ya tienen equipos
-  101: [97, 98], 102: [99, 100],  // SF
+  101: [97, 99], 102: [98, 100],  // SF
   103: [101, 102], 104: [101, 102], // 3P y F
 }
 
