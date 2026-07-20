@@ -49,7 +49,7 @@ export function calcScore(participant, results, settings) {
   for (const { label, predField, settKey, bonus } of specials) {
     const pred = participant[predField]
     const actual = settings[settKey]
-    const correct = !!(actual && pred === actual)
+    const correct = !!(actual && normSpecial(pred) === normSpecial(actual))
     const spPts = correct ? bonus : 0
     pts += spPts
     specialBreakdown[label] = { pred, actual, correct, pts: spPts }
@@ -59,6 +59,20 @@ export function calcScore(participant, results, settings) {
 }
 
 function sgn(n) { return n > 0 ? 1 : n < 0 ? -1 : 0 }
+
+function normSpecial(s) {
+  if (!s) return ''
+  const t = s.toLowerCase().trim()
+  if (/mbapp|kilian|killian/.test(t)) return 'mbappe'
+  if (/rodri/.test(t)) return 'rodri'
+  if (/lamin|yamal/.test(t)) return 'lamine yamal'
+  if (/vini/.test(t)) return 'vinicius'
+  if (/kane/.test(t)) return 'kane'
+  if (/olise/.test(t)) return 'olise'
+  if (/dembel/.test(t)) return 'dembele'
+  if (/messi/.test(t)) return 'messi'
+  return t
+}
 
 export function todayChile() {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Santiago' })

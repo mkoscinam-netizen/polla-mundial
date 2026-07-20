@@ -26,6 +26,11 @@ export default function RankingView({ participants, results, settings }) {
             <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">Octavos ✓</th>
             <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">4tos ✓</th>
             <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">Semis ✓</th>
+            <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">Final ✓</th>
+            <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">🏆</th>
+            <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">🥉</th>
+            <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">👟</th>
+            <th className="px-3 py-2 text-center text-xs text-slate-400 w-16">⚽</th>
             <th className="px-3 py-2 text-center text-xs text-yellow-400 font-bold w-16">Pts</th>
           </tr>
         </thead>
@@ -57,6 +62,29 @@ export default function RankingView({ participants, results, settings }) {
               </td>
               <td className="px-3 py-3 text-center">
                 <span className="text-blue-400 text-sm font-semibold">{score.knockBreakdown?.['semifinal']?.correct?.length ?? 0}</span>
+              </td>
+              <td className="px-3 py-3 text-center">
+                <span className="text-blue-400 text-sm font-semibold">{score.knockBreakdown?.['final']?.correct?.length ?? 0}</span>
+              </td>
+              <td className="px-3 py-3 text-center">
+                <span className={score.specialBreakdown?.['Campeón']?.correct ? 'text-green-400 text-sm font-semibold' : 'text-slate-600 text-sm'}>
+                  {score.specialBreakdown?.['Campeón']?.correct ? '✓' : '✗'}
+                </span>
+              </td>
+              <td className="px-3 py-3 text-center">
+                <span className={score.specialBreakdown?.['3er lugar']?.correct ? 'text-green-400 text-sm font-semibold' : 'text-slate-600 text-sm'}>
+                  {score.specialBreakdown?.['3er lugar']?.correct ? '✓' : '✗'}
+                </span>
+              </td>
+              <td className="px-3 py-3 text-center">
+                <span className={score.specialBreakdown?.['Bota de Oro']?.correct ? 'text-green-400 text-sm font-semibold' : 'text-slate-600 text-sm'}>
+                  {score.specialBreakdown?.['Bota de Oro']?.correct ? '✓' : '✗'}
+                </span>
+              </td>
+              <td className="px-3 py-3 text-center">
+                <span className={score.specialBreakdown?.['Balón de Oro']?.correct ? 'text-green-400 text-sm font-semibold' : 'text-slate-600 text-sm'}>
+                  {score.specialBreakdown?.['Balón de Oro']?.correct ? '✓' : '✗'}
+                </span>
               </td>
               <td className="px-3 py-3 text-center">
                 <span className="text-white text-base font-bold">{score.pts}</span>
