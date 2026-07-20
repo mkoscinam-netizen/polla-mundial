@@ -4775,16 +4775,6 @@ const predictions = [
     "botaOro": "HARRY KANE",
     "balonOro": "HARRY KANE"
   },
-    "16avos": ["México", "Brasil", "Ecuador", "Japón", "Alemania", "Francia", "Corea del Sur", "Inglaterra", "Bélgica", "Paraguay", "España", "Colombia", "Suiza", "Turquía", "Argentina", "Portugal", "Bosnia y Herzegovina", "Países Bajos", "Estados Unidos", "Marruecos", "Senegal", "Suecia", "Escocia", "Noruega", "Arabia Saudita", "Costa de Marfil", "Argelia", "Croacia", "Austria", "Egipto", "Uruguay", "Ghana"],
-    "octavos": ["México", "Ecuador", "Brasil", "Corea del Sur", "Croacia", "Paraguay", "Argentina", "Suiza", "Japón", "Francia", "Senegal", "Inglaterra", "España", "Bélgica", "Turquía", "Portugal"],
-    "cuartos": ["Francia", "España", "Brasil", "Argentina", "Japón", "Bélgica", "Inglaterra", "Portugal"],
-    "semifinal": ["Francia", "Brasil", "España", "Portugal"],
-    "final": ["España", "Portugal"],
-    "campeon": "Portugal",
-    "tercero": "Brasil",
-    "botaOro": "",
-    "balonOro": ""
-  },
   {
     "nombre": "Rene",
     "grupo": "Ineptos",
